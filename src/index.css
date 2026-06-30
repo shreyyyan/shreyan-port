@@ -1,0 +1,567 @@
+@import "tailwindcss";
+
+/* --- Basic Setup --- */
+* {
+    cursor: none !important;
+}
+
+/* Ensure text cursor works properly for text inputs */
+input:not([type="file"]), textarea, [contenteditable="true"], .glass-input {
+    cursor: text !important;
+}
+
+/* Hide the custom cursor when hovering over text inputs to avoid interference */
+body:has(input:not([type="file"]):hover) .custom-cursor,
+body:has(textarea:hover) .custom-cursor,
+body:has([contenteditable="true"]:hover) .custom-cursor,
+body:has(.glass-input:not([type="file"]):hover) .custom-cursor {
+    display: none !important;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FDFDFB;
+    color: #1a1a1a;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+::selection {
+    color: #fff;
+    background: #9FBE5A;
+}
+
+/* --- Custom Cursor --- */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+}
+
+.custom-cursor::before,
+.custom-cursor::after {
+    content: '';
+    position: absolute;
+    background-color: #1a1a1a;
+}
+
+.custom-cursor::before {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.custom-cursor::after {
+    width: 2px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* --- Animated Background Canvas --- */
+#universe-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* --- Main Title (Now Handled by Tailwind classes in App.tsx) --- */
+.main-text-container {
+    pointer-events: none; /* Allows clicks to go through to the canvas */
+}
+
+/* --- Alien Bot --- */
+.alien-bot-container {
+    position: fixed;
+    bottom: -10px; 
+    left: -70px; /* Starts off-screen */
+    width: 120px;
+    height: 120px;
+    z-index: 1000;
+    transition: left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    animation: peek-a-boo 10s infinite ease-in-out 3s;
+    cursor: pointer;
+}
+
+@keyframes peek-a-boo {
+    0%, 80%, 100% { left: -70px; }
+    90%, 95% { left: -120px; } /* Peeks out and hides back */
+}
+
+.alien-bot-container.active {
+    left: -8px; /* Slides into view when active */
+    animation: none; /* Stops peeking animation */
+}
+
+.alien-character {
+    width: 120px;
+    height: 120px;
+    position: relative;
+}
+
+.alien-label {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.7);
+    pointer-events: none;
+    transition: transform 0.5s ease;
+}
+
+.alien-bot-container.active .alien-label {
+    transform: translateY(-35px);
+}
+
+#alien-img {
+    width: 100%;
+    height: auto;
+    transform-origin: bottom center;
+    transition: transform 0.5s ease;
+    filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.2));
+}
+
+.alien-bot-container.active #alien-img {
+    transform: scale(1.2) translateY(-20px); /* Bounces up when active */
+}
+
+/* --- Footer (Now handled via Tailwind) --- */
+
+/* --- ROAST ME NOTEBOOK STYLES --- */
+.roast-box-container {
+    position: fixed;
+    bottom: 20px;
+    left: 115px; /* Default for desktop and larger */
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+}
+
+.roast-box-container.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.notebook-wrapper {
+    position: relative; /* Needed for absolute positioning of close button */
+    display: flex;
+    width: 100%;
+    max-width: 250px; /* Default for desktop and larger */
+    margin: 0 auto;
+    box-shadow: 0 0 15px 4px rgba(50, 50, 50, 0.25), 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+.notebook-edge {
+    flex: 0 0 0px; /* Removed the ripped edge visual */
+}
+
+.form__contact {
+   flex-grow: 1;
+   background-color: #fff;
+}
+
+.form__contact fieldset {
+    position: relative; 
+    margin: 0;
+    padding: 22px 40px 15px 30px;
+    border: none;
+    font: 18px 'Shadows Into Light', cursive;
+    --line-height: 32px;
+    background: #fff linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 0) 0 22px / 100% var(--line-height);
+    height: 150px; /* Reduced height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+}
+
+.form__contact fieldset:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    width: 0;
+    border-left: 2px double #E08183;
+}
+
+.form__contact p {
+    margin: 0 0 var(--line-height) 0;
+    line-height: var(--line-height);
+    color: #333;
+}
+
+.form__contact .form-question {
+    margin-bottom: 0;
+}
+
+.form__field {
+    display: inline-block;
+    vertical-align: middle;
+    color: #7DB665;
+    outline: none;
+    font-weight: bold;
+    min-width: 150px;
+}
+
+.form__field:empty {
+    color: #DDD;
+    font-weight: normal;
+}
+
+.form__field:empty:before,
+.form__contact .form__field:empty:focus:before {
+    content: attr(data-placeholder);
+}
+
+.form__contact button {
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    border: none;
+    font-size: 16px;
+    font-family: 'Shadows Into Light', cursive;
+    color: #8e44ad;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+.form__contact button:hover {
+    transform: translateX(10px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.step {
+    width: 100%;
+    text-align: center;
+}
+
+.step.step-centered {
+    flex-grow: 1; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 20px;
+    color: #999;
+    gap: 10px;
+}
+
+.spinner {
+    animation: rotate 2s linear infinite;
+    width: 16px;
+    height: 16px;
+}
+
+.spinner .path {
+    stroke: #8e44ad;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+.result-container {
+    line-height: 1.4;
+    color: #c0392b;
+    font-weight: bold;
+    font-size: 17px;
+    font-family: 'Shadows Into Light', cursive;
+    padding-bottom: 30px; 
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+#restart-button {
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+}
+
+.close-button {
+    position: absolute;
+    top: -17px;
+    right: -9.5px;
+    background: none;
+    border: none;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 40px;
+    line-height: 1;
+    color: #ccc;
+    cursor: pointer;
+    padding: 5px 10px; 
+    z-index: 10;
+    transition: color 0.2s ease;
+}
+.close-button:hover {
+    color: #888;
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+
+/* Responsive adjustments for Alien Bot */
+@media (max-width: 768px) { /* For tablets and smaller */
+    .alien-bot-container {
+        bottom: 0px; /* Move alien up */
+        left: -70px; /* Adjust slightly for tablets */
+        width: 90px; /* Slightly smaller */
+        height: 100px;
+    }
+    .alien-bot-container.active {
+        left: -5px; /* Adjust active position for smaller screens */
+    }
+    .alien-label {
+        top: -49px; /* Move label up to clear alien */
+        font-size: 1.2rem; /* Smaller label */
+    }
+    .alien-bot-container.active .alien-label {
+        transform: translateY(-20px); /* Adjusted for new position */
+    }
+    #alien-img {
+        transform: scale(1.1) translateY(-15px); /* Smaller bounce */
+    }
+
+    /* Responsive adjustments for Roast Box */
+    .roast-box-container {
+        left: 20%; /* Center horizontally */
+        transform: translateX(-50%);
+        width: 90%; /* Take up more width */
+        max-width: 250px; /* Allow it to be slightly wider */
+        bottom: 20px; /* Move roast box up to clear alien */
+    }
+    .form__contact fieldset {
+        padding: 20px 20px 15px 20px; /* Adjust padding */
+        height: 160px; /* Slightly more height for content */
+    }
+    .form__contact button {
+        right: 15px; /* Adjust button position */
+    }
+    #restart-button {
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) { /* For phones */
+    /* Hide custom cursor on mobile */
+    .custom-cursor {
+        display: none;
+    }
+
+    .alien-bot-container {
+        bottom: 0px; /* Move alien up */
+        left: -70px; /* Adjust slightly for tablets */
+        width: 50px; /* Slightly smaller */
+        height: 100px;
+    }
+
+    @keyframes peek-a-boo-mobile {
+        0%, 80%, 100% { left: -50px; } /* Start further left */
+        90%, 95% { left: -50px; } /* Peeks out and hides back for mobile, further left */
+    }
+
+    .alien-bot-container.active {
+        left: -5px; /* Adjust active position for smaller screens */
+    }
+    .alien-label {
+        top: -40px; /* Move label up to clear alien */
+        font-size: 1rem; /* Smaller label */
+    }
+    .alien-bot-container.active .alien-label {
+        transform: translateY(-20px); /* Adjusted for new position */
+    }
+    #alien-img {
+        transform: scale(1.1) translateY(-15px); /* Smaller bounce */
+    }
+
+    /* Responsive adjustments for Roast Box */
+    .roast-box-container {
+        left: 38%;
+        transform: translateX(-50%);
+        width: 58%; /* Even smaller width */
+        max-width: 200px; /* Significantly smaller max-width */
+    }
+    #restart-button {
+        bottom: 3px;
+        right: 7px;
+    }
+    .loader {
+        font-size: 10px; /* Smaller loader text */
+        gap: 5px;
+    }
+    .spinner {
+        width: 14px; /* Smaller spinner */
+        height: 14px;
+    }
+    .result-container {
+        font-size: 10px; /* Smaller result font */
+        padding-bottom: 10px;
+    }
+    .close-button {
+        font-size: 22px; /* Smaller close button */
+        top: -5px;
+        right: -3px;
+    }
+}
+
+/* --- Glassmorphism UI Components --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+}
+
+.glass-btn {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 9999px;
+    font-weight: 700;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.glass-input {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    outline: none;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.glass-input:focus {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 1px #1a1a1a, 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* --- Top Dock Style Navbar --- */
+.glass-dock {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-hidden {
+    transform: translate(-50%, -150%) !important;
+}
+
+.dock-item {
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #1a1a1a;
+}
+
+.dock-item:hover {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dock-tooltip {
+    position: absolute;
+    bottom: -35px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(-10px);
+    white-space: nowrap;
+}
+
+.dock-item:hover .dock-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 1);
+}

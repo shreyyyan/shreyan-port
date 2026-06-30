@@ -1,0 +1,6 @@
+{
+  "name": "Shreyan CV Portfolio",
+  "description": "A dark, interactive portfolio website featuring project displays, a sarcastic roast generator powered by Gemini, and direct CV download functionality.",
+  "requestFramePermissions": ["downloads"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
