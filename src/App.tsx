@@ -31,6 +31,26 @@ export default function App() {
   // Modal state for projects
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const [showLoading, setShowLoading] = useState(true);
+  const [fadeText, setFadeText] = useState(false);
+  const [fadeBg, setFadeBg] = useState(false);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => {
+      setFadeText(true);
+    }, 1500);
+    
+    const t2 = setTimeout(() => {
+      setFadeBg(true);
+    }, 2000);
+    
+    const t3 = setTimeout(() => {
+      setShowLoading(false);
+    }, 3000);
+    
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
+
   const nameInputRef = useRef<HTMLSpanElement>(null);
   const inactivityTimer = useRef<NodeJS.Timeout | null>(null);
   const roastDisappearTimer = useRef<NodeJS.Timeout | null>(null);
@@ -364,6 +384,11 @@ export default function App() {
 
   return (
     <>
+      {showLoading && (
+        <div className={`initial-loader ${fadeBg ? 'fading' : ''}`}>
+          <h1 className={fadeText ? 'fading-text' : ''}>#shreyandahal</h1>
+        </div>
+      )}
       <div className="custom-cursor" ref={cursorRef}></div>
       <canvas id="universe-canvas" ref={canvasRef}></canvas>
 
@@ -484,16 +509,16 @@ export default function App() {
       {selectedProject && (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 pointer-events-auto">
            {/* Backdrop */}
-           <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setSelectedProject(null)}></div>
+           <div className="absolute inset-0 bg-black/80" onClick={() => setSelectedProject(null)}></div>
            {/* Modal Content */}
-           <div className="glass-panel max-w-4xl w-full max-h-[90vh] overflow-y-auto relative z-10 flex flex-col md:flex-row shadow-2xl border border-white/10">
-              <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 bg-black/50 hover:bg-black/80 rounded-full p-2 transition text-white/70 hover:text-white">
+           <div className="bg-[#FDFDFB] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative z-10 flex flex-col md:flex-row shadow-2xl border border-gray-200">
+              <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 bg-black/50 hover:bg-black/80 rounded-full p-2 transition text-white/70 hover:text-white z-20">
                 <X size={24} />
               </button>
               <div className="md:w-1/2">
-                <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none min-h-[300px]" />
+                <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none min-h-[300px]" />
               </div>
-              <div className="p-8 md:w-1/2 flex flex-col justify-center bg-white/40">
+              <div className="p-8 md:w-1/2 flex flex-col justify-center bg-[#FDFDFB] rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none">
                 <h3 className="text-3xl font-bold mb-4 text-[#1a1a1a]">{selectedProject.title}</h3>
                 <p className="text-[#1a1a1a] opacity-80 leading-relaxed mb-6">{selectedProject.description}</p>
                 <div className="flex flex-wrap gap-2 mb-8">

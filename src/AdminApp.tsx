@@ -17,6 +17,7 @@ export default function AdminApp() {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [authError, setAuthError] = useState('');
+  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   
   const [projects, setProjects] = useState<Project[]>([]);
   const [email, setEmail] = useState('');
@@ -140,7 +141,7 @@ export default function AdminApp() {
             this.radius = this.baseRadius;
             this.x = Math.random() * canvas!.width;
             this.y = Math.random() * canvas!.height;
-            this.velocity = { x: (Math.random() - 0.5) * 0.15, y: (Math.random() - 0.5) * 0.15 };
+            this.velocity = { x: (Math.random() - 0.5) * 0.05, y: (Math.random() - 0.5) * 0.05 };
             this.color = `rgba(0,0,0,${Math.random() * 0.4 + 0.1})`;
             this.pulseFactor = Math.random() * 0.001;
         }
@@ -332,7 +333,7 @@ export default function AdminApp() {
          <div className="custom-cursor" ref={cursorRef}></div>
          <canvas id="universe-canvas" ref={canvasRef}></canvas>
          <div className="relative z-10 min-h-screen flex flex-col justify-center items-center p-4 text-[#1a1a1a]">
-           <div className="glass-panel p-8 sm:p-10 max-w-md w-full shadow-2xl backdrop-blur-xl bg-white/50 pointer-events-auto border border-white/60">
+           <div className="glass-panel p-8 sm:p-10 max-w-md w-full shadow-2xl bg-white/50 pointer-events-auto border border-white/60">
              <h1 className="text-4xl font-bold mb-8 text-center font-['Shadows_Into_Light'] text-blue-700">Admin Access</h1>
              <form onSubmit={handleLogin} className="flex flex-col gap-5">
                {authError && <div className="text-red-500 text-sm font-semibold text-center">{authError}</div>}
@@ -358,7 +359,7 @@ export default function AdminApp() {
              </div>
              
              {isAdding ? (
-               <div className="glass-panel p-6 sm:p-8 mb-8 backdrop-blur-xl bg-white/60">
+               <div className="glass-panel p-6 sm:p-8 mb-8 bg-white/60">
                  <h2 className="text-2xl font-bold mb-6 text-[#1a1a1a]">{editingId ? "Edit Project" : "Add New Project"}</h2>
                  <form className="flex flex-col gap-5" onSubmit={handleSave}>
                    <input type="text" placeholder="Project Title" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className="glass-input p-4 rounded-xl text-[#1a1a1a]" />
@@ -383,7 +384,7 @@ export default function AdminApp() {
                  </form>
                </div>
              ) : (
-               <div className="glass-panel p-6 sm:p-8 backdrop-blur-xl bg-white/50">
+               <div className="glass-panel p-6 sm:p-8 bg-white/50">
                    <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                       <h2 className="text-2xl font-bold text-[#1a1a1a]">Manage Projects</h2>
                       <button onClick={() => setIsAdding(true)} className="glass-btn font-bold text-sm px-6 py-2 rounded-full shadow-md bg-white/60 hover:bg-white/90 hover:-translate-y-0.5 transition-all">Add New Project</button>
@@ -396,7 +397,7 @@ export default function AdminApp() {
                        <p className="text-center opacity-60 italic p-6">No projects yet. Add one!</p>
                      ) : (
                        projects.map(project => (
-                         <div key={project.id} className="glass-card p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/40">
+                         <div key={project.id} className="p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/60 border border-white/50 rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.1)] transition-all hover:-translate-y-1">
                             <div className="flex gap-4 items-center">
                               {project.imageUrl && <img src={project.imageUrl} alt={project.title} className="w-16 h-16 rounded-md object-cover border border-black/10" />}
                               <div>
