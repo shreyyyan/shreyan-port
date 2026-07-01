@@ -473,20 +473,21 @@ export default function App() {
                  <h3 className="text-2xl font-bold mb-4 text-[#1a1a1a]">Find me online</h3>
                  <div className="flex flex-col gap-6">
                     <a href="https://www.facebook.com/shreyyyan" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-opacity">
-                      <Facebook size={28} className="text-[#1a1a1a] group-hover:text-[#1877F2] transition-colors" />
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#1a1a1a] to-[#1a1a1a] group-hover:from-[#1877F2] group-hover:to-[#0056b3] transition-colors duration-300">Facebook</span>
-                    </a>
-                    <a href="https://www.instagram.com/_shreyyyan/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-all">
-                      <Instagram size={28} className="text-[#1a1a1a] group-hover:text-[#E1306C] transition-colors" />
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#1a1a1a] to-[#1a1a1a] group-hover:from-[#f09433] group-hover:via-[#dc2743] group-hover:to-[#bc1888] transition-colors duration-300">Instagram</span>
-                    </a>
-                    <a href="https://github.com/shreyyyan" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-all">
-                      <Github size={28} className="text-[#1a1a1a] group-hover:text-[#171515] transition-colors" />
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#1a1a1a] to-[#1a1a1a] group-hover:from-[#171515] group-hover:to-[#0f4d1f] transition-colors duration-300">GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/shreyan-dahal-6a88b2329/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-opacity">
-                      <Linkedin size={28} className="text-[#1a1a1a] group-hover:text-[#0A66C2] transition-colors" />
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#1a1a1a] to-[#1a1a1a] group-hover:from-[#0A66C2] group-hover:to-[#004182] transition-colors duration-300">LinkedIn</span>
+  <Facebook size={28} className="text-[#1a1a1a] group-hover:text-[#1877F2] transition-colors" />
+  <span className="text-lg transition-colors duration-300 group-hover:text-[#1877F2]">Facebook</span>
+</a>
+<a href="https://www.instagram.com/_shreyyyan/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-all">
+  <Instagram size={28} className="text-[#1a1a1a] group-hover:text-[#E1306C] transition-colors" />
+  <span className="text-lg transition-colors duration-300 group-hover:text-[#E1306C]">Instagram</span>
+</a>
+<a href="https://github.com/shreyyyan" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-all">
+  <Github size={28} className="text-[#1a1a1a] group-hover:text-[#171515] transition-colors" />
+  <span className="text-lg transition-colors duration-300 group-hover:text-[#171515]">GitHub</span>
+</a>
+<a href="https://www.linkedin.com/in/shreyan-dahal-6a88b2329/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-opacity">
+  <Linkedin size={28} className="text-[#1a1a1a] group-hover:text-[#0A66C2] transition-colors" />
+  <span className="text-lg transition-colors duration-300 group-hover:text-[#0A66C2]">LinkedIn</span>
+</a>
                     </a>
                  </div>
                </div>
