@@ -484,7 +484,7 @@ export default function App() {
                       <Github size={28} className="text-[#1a1a1a] group-hover:text-[#171515] transition-colors" />
                       <span className="text-lg transition-colors duration-300 group-hover:text-[#171515]">GitHub</span>
                     </a>
-                    <a href="https://www.linkedin.com/in/shreyan-dahal-6a88b2329/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-opacity">
+                    <a href="https://www.linkedin.com/in/shreyandahal/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group font-medium opacity-80 hover:opacity-100 text-[#1a1a1a] transition-opacity">
                       <Linkedin size={28} className="text-[#1a1a1a] group-hover:text-[#0A66C2] transition-colors" />
                       <span className="text-lg transition-colors duration-300 group-hover:text-[#0A66C2]">LinkedIn</span>
                     </a>
